@@ -141,7 +141,9 @@ class GenericRequest internal constructor(
                 if (data is Map<*, *>) {
                     mutableHeaders.putAllIfAbsentWithNull(GenericRequest.DEFAULT_FORM_HEADERS)
                 } else {
-                    mutableHeaders.putAllIfAbsentWithNull(GenericRequest.DEFAULT_DATA_HEADERS)
+                    if (!mutableHeaders.containsKey("Content-Type")) {
+                        mutableHeaders.putAllIfAbsentWithNull(GenericRequest.DEFAULT_DATA_HEADERS)
+                    }
                 }
             }
         } else {
